@@ -19,8 +19,18 @@
 				<section data-background-color="aquamarine">Slide 1</section>
 				<section>Slide 2</section>
 				<section>Slide 3</section>
-				<section><img src="https://raw.githubusercontent.com/JacOng17/JacOng17.github.io/master/assets/images/quotes/when-the-dream-is-big-enough.webp" width="550" height="650"></section>
+				<section>Slide 4</section>
 				<section data-background-color="yellow">Slide 5</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Slide 6
+						A paragraph with some text and a [link](http://jacong17.github.io).
+						---
+						## Slide 7
+						---
+						## Slide 8
+					</textarea>
+				</section>
 			</div>
 		</div>
 
@@ -35,6 +45,8 @@
 			Reveal.initialize({
 				hash: true,
 				slideNumber: true,
+				autoSlide: 1000,
+  			loop: true,
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});

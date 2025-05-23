@@ -735,18 +735,39 @@ export default function( revealElement, options ) {
 		dom.overlay.classList.add( 'overlay-preview' );
 		dom.wrapper.appendChild( dom.overlay );
 
-		dom.overlay.innerHTML =
-			`<header>
-				<a class="close" href="#"><span class="icon"></span></a>
-				<a class="external" href="${url}" target="_blank"><span class="icon"></span></a>
-			</header>
-			<div class="spinner"></div>
-			<div class="viewport">
-				<iframe src="${url}"></iframe>
-				<small class="viewport-inner">
-					<span class="x-frame-error">Unable to load iframe. This is likely due to the site's policy (x-frame-options).</span>
-				</small>
-			</div>`;
+		const header = document.createElement('header');
+		const closeLink = document.createElement('a');
+		closeLink.className = 'close';
+		closeLink.href = '#';
+		closeLink.innerHTML = '<span class="icon"></span>';
+		header.appendChild(closeLink);
+
+		const externalLink = document.createElement('a');
+		externalLink.className = 'external';
+		externalLink.href = url;
+		externalLink.target = '_blank';
+		externalLink.innerHTML = '<span class="icon"></span>';
+		header.appendChild(externalLink);
+
+		dom.overlay.appendChild(header);
+
+		const spinner = document.createElement('div');
+		spinner.className = 'spinner';
+		dom.overlay.appendChild(spinner);
+
+		const viewport = document.createElement('div');
+		viewport.className = 'viewport';
+
+		const iframe = document.createElement('iframe');
+		iframe.src = url;
+		viewport.appendChild(iframe);
+
+		const viewportInner = document.createElement('small');
+		viewportInner.className = 'viewport-inner';
+		viewportInner.innerHTML = '<span class="x-frame-error">Unable to load iframe. This is likely due to the site\'s policy (x-frame-options).</span>';
+		viewport.appendChild(viewportInner);
+
+		dom.overlay.appendChild(viewport);
 
 		dom.overlay.querySelector( 'iframe' ).addEventListener( 'load', event => {
 			dom.overlay.classList.add( 'loaded' );

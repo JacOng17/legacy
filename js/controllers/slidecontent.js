@@ -7,6 +7,15 @@ import fitty from 'fitty';
  * Handles loading, unloading and playback of slide
  * content such as images, videos and iframes.
  */
+function isValidUrl(url) {
+    try {
+        const parsedUrl = new URL(url);
+        return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
+    } catch (e) {
+        return false;
+    }
+}
+
 export default class SlideContent {
 
 	constructor( Reveal ) {
@@ -52,7 +61,12 @@ export default class SlideContent {
 		// Media elements with data-src attributes
 		queryAll( slide, 'img[data-src], video[data-src], audio[data-src], iframe[data-src]' ).forEach( element => {
 			if( element.tagName !== 'IFRAME' || this.shouldPreload( element ) ) {
-				element.setAttribute( 'src', element.getAttribute( 'data-src' ) );
+				const dataSrc = element.getAttribute( 'data-src' );
+				if (isValidUrl(dataSrc)) {
+					element.setAttribute( 'src', dataSrc );
+				} else {
+					console.warn('Invalid data-src URL:', dataSrc);
+				}
 				element.setAttribute( 'data-lazy-loaded', '' );
 				element.removeAttribute( 'data-src' );
 			}

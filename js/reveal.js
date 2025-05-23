@@ -738,15 +738,22 @@ export default function( revealElement, options ) {
 		dom.overlay.innerHTML =
 			`<header>
 				<a class="close" href="#"><span class="icon"></span></a>
-				<a class="external" href="${url}" target="_blank"><span class="icon"></span></a>
+				<a class="external" target="_blank"><span class="icon"></span></a>
 			</header>
 			<div class="spinner"></div>
 			<div class="viewport">
-				<iframe src="${url}"></iframe>
+				<iframe></iframe>
 				<small class="viewport-inner">
 					<span class="x-frame-error">Unable to load iframe. This is likely due to the site's policy (x-frame-options).</span>
 				</small>
 			</div>`;
+
+		// Safely set the href and src attributes
+		const externalLink = dom.overlay.querySelector('.external');
+		externalLink.setAttribute('href', url);
+
+		const iframe = dom.overlay.querySelector('iframe');
+		iframe.setAttribute('src', url);
 
 		dom.overlay.querySelector( 'iframe' ).addEventListener( 'load', event => {
 			dom.overlay.classList.add( 'loaded' );

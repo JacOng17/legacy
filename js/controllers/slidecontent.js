@@ -1,5 +1,6 @@
 import { extend, queryAll, closest, getMimeTypeFromFile } from '../utils/util.js'
 import { isMobile } from '../utils/device.js'
+import DOMPurify from 'dompurify';
 
 import fitty from 'fitty';
 
@@ -63,7 +64,8 @@ export default class SlideContent {
 			if( element.tagName !== 'IFRAME' || this.shouldPreload( element ) ) {
 				const dataSrc = element.getAttribute( 'data-src' );
 				if (isValidUrl(dataSrc)) {
-					element.setAttribute( 'src', dataSrc );
+					const sanitizedSrc = DOMPurify.sanitize(dataSrc);
+					element.setAttribute( 'src', sanitizedSrc );
 				} else {
 					console.warn('Invalid data-src URL:', dataSrc);
 				}

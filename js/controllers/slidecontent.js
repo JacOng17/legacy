@@ -79,7 +79,13 @@ export default class SlideContent {
 			let sources = 0;
 
 			queryAll( media, 'source[data-src]' ).forEach( source => {
-				source.setAttribute( 'src', source.getAttribute( 'data-src' ) );
+				const dataSrc = source.getAttribute( 'data-src' );
+				if (isValidUrl(dataSrc)) {
+					const sanitizedSrc = DOMPurify.sanitize(dataSrc);
+					source.setAttribute( 'src', sanitizedSrc );
+				} else {
+					console.warn('Invalid data-src URL on <source>:', dataSrc);
+				}
 				source.removeAttribute( 'data-src' );
 				source.setAttribute( 'data-lazy-loaded', '' );
 				sources += 1;

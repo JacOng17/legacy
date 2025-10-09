@@ -367,9 +367,13 @@ export default class SlideContent {
 				}
 
 				if( el.getAttribute( 'src' ) !== el.getAttribute( 'data-src' ) ) {
-					el.removeEventListener( 'load', this.startEmbeddedIframe ); // remove first to avoid dupes
-					el.addEventListener( 'load', this.startEmbeddedIframe );
-					el.setAttribute( 'src', el.getAttribute( 'data-src' ) );
+					const dataSrc = el.getAttribute( 'data-src' );
+					if( isValidUrl( dataSrc ) ) {
+						el.removeEventListener( 'load', this.startEmbeddedIframe ); // remove first to avoid dupes
+						el.addEventListener( 'load', this.startEmbeddedIframe );
+						el.setAttribute( 'src', dataSrc );
+					}
+					// Optional: else could log a warning or set to blank/error page
 				}
 			} );
 

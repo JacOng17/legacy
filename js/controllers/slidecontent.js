@@ -368,10 +368,10 @@ export default class SlideContent {
 
 				if( el.getAttribute( 'src' ) !== el.getAttribute( 'data-src' ) ) {
 					const dataSrc = el.getAttribute( 'data-src' );
-					if( isValidUrl( dataSrc ) ) {
+					if( isValidUrl( dataSrc ) && isAllowedIframeSrc( dataSrc ) ) {
 						el.removeEventListener( 'load', this.startEmbeddedIframe ); // remove first to avoid dupes
 						el.addEventListener( 'load', this.startEmbeddedIframe );
-						el.setAttribute( 'src', dataSrc );
+						el.setAttribute( 'src', encodeURI(dataSrc) );
 					}
 					// Optional: else could log a warning or set to blank/error page
 				}

@@ -1,5 +1,5 @@
 // Set the date we're counting down to
-var countDownDate = new Date("Oct 18, 2025 10:00:00").getTime();
+var countDownDate = new Date("Feb 21, 2026 10:00:00").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -23,6 +23,6 @@ var x = setInterval(function() {
   // If the count down is over, write some text 
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("countdownTimer").innerHTML = "WELCOME TO SUMMIT 2025!!!";
+    document.getElementById("countdownTimer").innerHTML = "WELCOME TO IMPACT 2026!!!";
   }
 }, 1000);
